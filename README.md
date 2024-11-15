@@ -6,6 +6,7 @@ GLSL synatx highlighting is supported for:
 
 - files with extensions supported by [Khronos reference compiler](https://github.com/KhronosGroup/glslang): `.vert`, `.tesc`, `.tese`, `.geom`, `.frag`, and `.comp`
 - files with `.glsl` extension
+- test cases with `.shader_test` extension (used by piglit or shader-db)
 - HTML `<script>` tags with `type` set to `x-shader-vertex` or `x-shader-fragment`
 
 If you need support highlighting in files with other extensions (e.g. `.vs` and `.fs`) you can add it using [autocommand](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#:autocmd):
@@ -13,6 +14,15 @@ If you need support highlighting in files with other extensions (e.g. `.vs` and 
 ```viml
 " in your .vimrc (_vimrc for Windows)
 autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
+```
+
+or
+
+```lua
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = {"*.vs", "*.fs", "*.shader_test"},
+  command = "set ft=glsl"
+})
 ```
 
 or using [modeline](http://vimdoc.sourceforge.net/htmldoc/options.html#modeline) in your shader files:
